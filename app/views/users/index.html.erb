@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Users and Temperatures</title>
+  <link rel="stylesheet" href="<%= asset_path 'styles.css' %>">
+</head>
+<body>
+  <div class="container">
+    <h1>Users and Temperatures</h1>
+
+    <!-- Users Section -->
+    <div class="section">
+      <h2>Users</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.name %></td>
+              <td><%= user.email %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- New User Form -->
+<div class="section">
+  <h2>Add New User</h2>
+  <%= form_with model: @user, url: users_path, local: true do |f| %>
+    <div>
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </div>
+    <div>
+      <%= f.submit 'Create User' %>
+    </div>
+  <% end %>
+</div>
+
+    <!-- Temperatures Section -->
+    <div class="section">
+      <h2>Temperatures</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Temperature (°C)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @temperatures.each do |temperature| %>
+            <tr>
+              <td><%= temperature.recorded_at %></td>
+              <td><%= temperature.value %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- New Temperature Form -->
+    <div class="section">
+      <h2>Record New Temperature</h2>
+      <%= form_with model: @temperature, url: temperatures_path, local: true do |f| %>
+        <div>
+          <%= f.label :recorded_at, "Date" %><br>
+          <%= f.date_select :recorded_at %>
+        </div>
+        <div>
+          <%= f.label :value, "Temperature (°C)" %><br>
+          <%= f.number_field :value %>
+        </div>
+        <div>
+          <%= f.submit 'Record Temperature' %>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+</body>
+</html>
