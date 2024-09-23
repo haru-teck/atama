@@ -8,7 +8,7 @@
   <div class="container">
     <h1>Users and Temperatures</h1>
 
-   <h1>ユーザー一覧</h1>
+<h1>ユーザー一覧</h1>
 <table>
   <thead>
     <tr>
@@ -18,7 +18,7 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.name %></td>
+        <td><%= link_to user.name, user_path(user) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -60,12 +60,16 @@
 <% end %>
 
 <h2>新しい体温を記録</h2>
-<%= form_with(model: @temperature, local: true, url: temperatures_path) do |f| %>
+<%= form_with(model: @temperature, local: true) do |form| %>
   <div>
-    <%= f.label :netu, "体温" %>
-    <%= f.text_field :netu %>
+    <%= form.label :user_id, "ユーザー" %>
+    <%= form.collection_select :user_id, User.all, :id, :name, include_blank: true %>
   </div>
   <div>
-    <%= f.submit "体温を記録" %>
+    <%= form.label :netu, "体温" %>
+    <%= form.number_field :netu, step: 0.1 %>
+  </div>
+  <div>
+    <%= form.submit "体温を記録" %>
   </div>
 <% end %>

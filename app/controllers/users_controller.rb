@@ -19,6 +19,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = User.find(params[:id])
+    @temperatures = @user.temperatures  # ユーザーに関連する体温データを取得
+  end
+
+  def next_user
+    current_user = User.find(params[:id])
+    @next_user = User.where('id > ?', current_user.id).order(:id).first || User.first
+    redirect_to user_path(@next_user)  # 次のユーザーの詳細ページにリダイレクト
+  end
+
   private
 
   def user_params

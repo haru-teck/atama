@@ -1,0 +1,23 @@
+<h1><%= @user.name %>の情報</h1>
+<p>誕生日: <%= @user.birthday %></p>
+
+<h2>体温リスト</h2>
+<table>
+  <thead>
+    <tr>
+      <th>記録日時</th>
+      <th>体温</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @temperatures.each do |temperature| %>
+      <tr>
+        <td><%= temperature.created_at %></td>
+        <td><%= temperature.netu %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%# 次のユーザーへのリンク %>
+<%= link_to '次のユーザー', next_user_user_path(@user.id), class: 'next-user' %>
