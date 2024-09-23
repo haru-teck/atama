@@ -1,10 +1,20 @@
 Rails.application.routes.draw do
-   root "users#index"
-  resources :users, only: [:index,:show, :new, :create]
-  resources :temperatures, only: [:index, :new, :create]
+  root 'users#index'  # トップページ
+
+  # 設定ページへのルート
+  get 'settings', to: 'users#settings'  # 設定ページ用
+
   resources :users do
     member do
-      get 'next_user', to: 'users#next_user'  # 追加したルート
+      get 'next_user'  # ユーザーの次の情報を取得するためのルート
+       get 'edit'
     end
   end
+
+
+  
+
+  resources :temperatures, only: [:index, :new, :create]
 end
+
+

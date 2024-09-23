@@ -8,68 +8,38 @@
   <div class="container">
     <h1>Users and Temperatures</h1>
 
-<h1>ユーザー一覧</h1>
-<table>
-  <thead>
-    <tr>
-      <th>名前</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= link_to user.name, user_path(user) %></td>
-      </tr>
+    <h1><%= @user.name %>の体温記録</h1>
+    <%= link_to '設定ページへ', settings_path, class: 'btn btn-primary' %>
+
+    <h2>体温リスト</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>記録日時</th>
+          <th>体温</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @temperatures.each do |temperature| %>
+          <tr>
+            <td><%= temperature.created_at %></td>
+            <td><%= temperature.netu %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <h2><%= @user.name %>の新しい体温を記録</h2>
+    <%= form_with(model: @temperature, local: true) do |form| %>
+      <%= form.hidden_field :user_id, value: @user.id %>
+      <div>
+        <%= form.label :netu, "体温" %>
+        <%= form.number_field :netu, step: 0.1 %>
+      </div>
+      <div>
+        <%= form.submit "体温を記録" %>
+      </div>
     <% end %>
-  </tbody>
-</table>
-
-<h1>体温リスト</h1>
-<table>
-  <thead>
-    <tr>
-      <th>記録日時</th>
-      <th>体温</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @temperatures.each do |temperature| %>
-      <tr>
-        <td><%= temperature.created_at %></td>
-        <td><%= temperature.netu %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<h2>新しいユーザーを登録</h2>
-<%= form_with model: @user, local: true do |form| %>
-  <div>
-    <%= form.label :name, "名前" %>
-    <%= form.text_field :name %>
   </div>
-
-  <div>
-    <%= form.label :birthday, "誕生日" %>
-    <%= form.date_select :birthday %>
-  </div>
-
-  <div>
-    <%= form.submit "登録" %>
-  </div>
-<% end %>
-
-<h2>新しい体温を記録</h2>
-<%= form_with(model: @temperature, local: true) do |form| %>
-  <div>
-    <%= form.label :user_id, "ユーザー" %>
-    <%= form.collection_select :user_id, User.all, :id, :name, include_blank: true %>
-  </div>
-  <div>
-    <%= form.label :netu, "体温" %>
-    <%= form.number_field :netu, step: 0.1 %>
-  </div>
-  <div>
-    <%= form.submit "体温を記録" %>
-  </div>
-<% end %>
+</body>
+</html>
