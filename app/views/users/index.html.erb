@@ -7,10 +7,8 @@
 <body>
   <div class="container">
     <h1>Users and Temperatures</h1>
-
     <h1><%= @user.name %>の体温記録</h1>
     <%= link_to '設定ページへ', settings_path, class: 'btn btn-primary' %>
-
     <h2>体温リスト</h2>
     <table>
       <thead>
@@ -33,9 +31,33 @@
     <%= form_with(model: @temperature, local: true) do |form| %>
       <%= form.hidden_field :user_id, value: @user.id %>
       <div>
-        <%= form.label :netu, "体温" %> 
-<%= form.text_field :netu, placeholder: '体温を入力してください' %>
+        <%= form.label :netu, "体温" %>
+        <%= form.text_field :netu, placeholder: '体温を入力してください' %>
       </div>
+
+      <h3>体調についての入力</h3>
+      <%= form.fields_for :addition do |addition_form| %>
+        <div>
+          <%= addition_form.label :eat, "食欲" %>
+          <%= addition_form.radio_button :eat, 'あり' %> あり
+          <%= addition_form.radio_button :eat, 'なし' %> なし
+        </div>
+        <div>
+          <%= addition_form.label :moisture, "水分摂取" %>
+          <%= addition_form.radio_button :moisture, 'とれている' %> とれている
+          <%= addition_form.radio_button :moisture, 'とれていない' %> とれていない
+        </div>
+        <div>
+          <%= addition_form.label :puke, "嘔吐" %>
+          <%= addition_form.radio_button :puke, 'あり' %> あり
+          <%= addition_form.radio_button :puke, 'なし' %> なし
+        </div>
+        <div>
+          <%= addition_form.label :memo, "メモ" %>
+          <%= addition_form.text_area :memo, placeholder: '自由に入力してください', rows: 4 %>
+        </div>
+      <% end %>
+
       <div>
         <%= form.submit "体温を記録" %>
       </div>

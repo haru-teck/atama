@@ -2,5 +2,6 @@ class Temperature < ApplicationRecord
   validates :netu, presence: true
 
   belongs_to :user
-  belongs_to :addition
+  has_one :addition, dependent: :destroy
+  
 end
