@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_24_030036) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_24_045607) do
   create_table "additions", charset: "utf8", force: :cascade do |t|
     t.string "eat"
     t.string "moisture"
@@ -20,7 +20,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_24_030036) do
     t.datetime "updated_at", null: false
     t.datetime "recorded_at"
     t.bigint "temperature_id", null: false
+    t.bigint "user_id", null: false
     t.index ["temperature_id"], name: "index_additions_on_temperature_id"
+    t.index ["user_id"], name: "index_additions_on_user_id"
   end
 
   create_table "temperatures", charset: "utf8", force: :cascade do |t|
@@ -39,4 +41,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_24_030036) do
   end
 
   add_foreign_key "additions", "temperatures"
+  add_foreign_key "additions", "users"
 end
