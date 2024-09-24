@@ -1,15 +1,9 @@
 class UsersController < ApplicationController
+
   def index
-    # 最初のユーザーを取得
-    @user = User.first
-    
-    # そのユーザーに関連する体温のみ取得
-    @temperatures = @user.temperatures
-    
-    # 新しい体温入力フォーム用のインスタンス
-    @temperature = Temperature.new
-    # 新しいユーザー登録フォーム用のインスタンス
-    @new_user = User.new
+      @user = User.first # 表示するユーザーを選択（ここでは最初のユーザーを表示）
+      @temperatures = @user.temperatures # ユーザーの体温データを取得
+      @temperature = Temperature.new # 新しい体温データを記録するためのインスタンス
   end
 
   # 設定ページでユーザー一覧と新規登録を表示するアクション
@@ -31,17 +25,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to users_path, notice: 'ユーザーが削除されました。'
+  end
+
+
   def show
     @user = User.find(params[:id])
     @temperatures = @user.temperatures  # ユーザーに関連する体温データを取得
   end
 
-  def next_user
-    current_user = User.find(params[:id])
-    @next_user = User.where('id > ?', current_user.id).order(:id).first || User.first
-    redirect_to user_path(@next_user)  # 次のユーザーの詳細ページにリダイレクト
-  end
-
+  
 
   def edit
     @user = User.find(params[:id])
@@ -56,12 +52,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-    redirect_to settings_path, notice: 'ユーザーが正常に削除されました。'
-  end
-
+  
   private
 
   def user_params

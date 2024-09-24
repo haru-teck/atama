@@ -18,7 +18,7 @@
     <td><%= user.birthday %></td>
     <td>
       <%= link_to '編集', edit_user_path(user), class: 'btn btn-primary' %>
-      <%= link_to '削除', user_path(user), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+      <%= link_to '詳細', user_path(user), class: 'btn btn-info' %> <!-- 詳細リンクを追加 -->
     </td>
   </tr>
 <% end %>
