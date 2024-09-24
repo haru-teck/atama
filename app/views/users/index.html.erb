@@ -22,7 +22,7 @@
       <tbody>
         <% @temperatures.each do |temperature| %>
           <tr>
-            <td><%= temperature.created_at %></td>
+            <td><%= temperature.created_at.in_time_zone("Tokyo").strftime("%m月%d日 %H:%M") %></td>
             <td><%= temperature.netu %></td>
           </tr>
         <% end %>
@@ -33,8 +33,8 @@
     <%= form_with(model: @temperature, local: true) do |form| %>
       <%= form.hidden_field :user_id, value: @user.id %>
       <div>
-        <%= form.label :netu, "体温" %>
-        <%= form.number_field :netu, step: 0.1 %>
+        <%= form.label :netu, "体温" %> 
+<%= form.text_field :netu, placeholder: '体温を入力してください' %>
       </div>
       <div>
         <%= form.submit "体温を記録" %>

@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_23_033639) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_24_015015) do
+  create_table "additions", charset: "utf8", force: :cascade do |t|
+    t.string "eat"
+    t.string "moisture"
+    t.string "puke"
+    t.text "memo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "temperatures", charset: "utf8", force: :cascade do |t|
     t.decimal "netu", precision: 4, scale: 1
     t.datetime "created_at", null: false
