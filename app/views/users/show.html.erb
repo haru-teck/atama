@@ -15,6 +15,10 @@
           <tr>
             <th>記録日時</th>
             <th>体温</th>
+            <th>食欲</th>
+            <th>水分</th>
+            <th>嘔吐</th>
+            <th>メモ</th>
           </tr>
         </thead>
         <tbody>
@@ -22,6 +26,10 @@
             <tr>
               <td><%= temperature.created_at.strftime('%Y年%m月%d日 %H:%M') %></td>
               <td><%= temperature.netu %> °C</td>
+              <td><%= temperature.addition&.eat || '' %></td>
+              <td><%= temperature.addition&.moisture || '' %></td>
+              <td><%= temperature.addition&.puke || '' %></td>
+              <td><%= temperature.addition&.memo || '' %></td>
             </tr>
           <% end %>
         </tbody>
