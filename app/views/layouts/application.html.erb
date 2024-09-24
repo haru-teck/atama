@@ -1,21 +1,34 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Atama</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>My Application</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <link rel="stylesheet" href="<%= asset_path 'styles.css' %>">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <h1>病院のアプリケーション</h1>
+      <nav>
+        <ul>
+          <li><%= link_to 'ホーム', root_path %></li>
+          <li><%= link_to 'ユーザー一覧', users_path %></li>
+          <li><%= link_to '新規ユーザー登録', new_user_path %></li>
+          <!-- 他のリンクを追加 -->
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+  <div class="content">
+    <%= yield %>  <!-- 各ビューの内容がここに挿入される -->
+  </div>
 
-  <body>
-    <% flash.each do |key, message| %>
-      <div class="alert alert-<%= key %>"><%= message %></div>
-    <% end %>
-    
-    <%= yield %>
-  </body>
+  <footer>
+    <div class="footer-container">
+      <p>© 2024 病院のアプリケーション</p>
+    </div>
+  </footer>
+</body>
 </html>
-
